@@ -1,5 +1,4 @@
 from sliding.ecg_slider import ECGSlider
-from sliding.slider import Slider
 from statistic.wasserstein_distance import WassersteinDistance, WassersteinDistanceDeviation
 from transform.indexed_transform import IndexedTransformer
 from transform.interpolate import SplineInterpolate

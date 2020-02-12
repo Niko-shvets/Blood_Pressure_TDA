@@ -34,14 +34,14 @@ class CurveProjection(TimeSeriesTransformer):
         self.step = step
 
     def __call__(self, data: np.ndarray) -> np.ndarray:
-        assert data.ndim == 1
+        dim = 1 if data.ndim == 1 else data.shape[1]
         n: int = data.shape[0]
         NWindows = int(np.ceil((n - self.window.max_index() - 1) / self.step))
-        X = np.zeros((NWindows, self.window.dim()))
+        X = np.zeros((NWindows, self.window.dim() * dim))
         i = 0
         for offset in range(0, n - self.window.max_index() - 1, self.step):
             idxx = self.window.get_indices(offset)
-            data_i = data[idxx].reshape(self.window.dim())
+            data_i = data[idxx].reshape(-1)
             X[i, :] = data_i
             i += 1
         return X
